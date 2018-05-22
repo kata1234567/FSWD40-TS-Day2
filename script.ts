@@ -118,9 +118,6 @@ let vehicle_data= []
 	vehicle_data.push(motor1, motor2, car1, car2, truck1, truck2);
 
 
-
-motor1.calculatePrice(); 
-
 function createDOM (){
 	for (i=0;i<vehicle_data.length;i++){
  	dummy = document.createElement("div");
@@ -128,7 +125,7 @@ function createDOM (){
  	dummy.classList.add("col-lg-4");
  	dummy.classList.add("col-md-6");
  	dummy.classList.add("col-sm-12");
- 	var row = document.getElementById("row1");
+ 	var row = document.getElementById("row4");
  	row.appendChild(dummy);
  	var headline = document.createElement("h4");
  	var headline_text = document.createTextNode(vehicle_data[i].Brand);
@@ -155,7 +152,7 @@ function createDOM (){
 
 
 
-createDOM();
+// createDOM();
 
 
 tags = document.getElementsByTagName("button");
@@ -168,41 +165,52 @@ for (let i=0; i<tags.length; i++){
 }
 
 
-function createTabs (){
-	for (i=0;i<vehicle_data.length;i++){
-		if(vehicle_data[i].type == "Motor"){
-			dummy = document.createElement("div");
+function createTabs (arr, x){
+	for (i=0;i<arr.length;i++){
+	dummy = document.createElement("div");
  	dummy.classList.add("card");
  	dummy.classList.add("col-lg-4");
  	dummy.classList.add("col-md-6");
  	dummy.classList.add("col-sm-12");
- 	var row = document.getElementById("row2");
+ 	var row = document.getElementById(`row${x}`);
  	row.appendChild(dummy);
  	var headline = document.createElement("h4");
- 	var headline_text = document.createTextNode(vehicle_data[i].Brand);
+ 	var headline_text = document.createTextNode(arr[i].Brand);
  	headline.appendChild(headline_text);
  	dummy.appendChild(headline);
  	var power = document.createElement("p");
- 	var power_text = document.createTextNode(vehicle_data[i].Power);
+ 	var power_text = document.createTextNode(arr[i].Power);
  	power.appendChild(power_text);
  	dummy.appendChild(power);
  	var mileage = document.createElement("p");
- 	var mileage_text = document.createTextNode(vehicle_data[i].Mileage);
+ 	var mileage_text = document.createTextNode(arr[i].Mileage);
  	mileage.appendChild(mileage_text);
  	dummy.appendChild(mileage);
  	var fuel = document.createElement("p");
- 	var fuel_text = document.createTextNode(vehicle_data[i].Fuel);
+ 	var fuel_text = document.createTextNode(arr[i].Fuel);
  	fuel.appendChild(fuel_text);
  	dummy.appendChild(fuel);
  	var button = document.createElement("button");
  	var button_text = document.createTextNode("Calculate the Price");
  	button.appendChild(button_text);
  	dummy.appendChild(button);	
-		}
+
 
  
 	}
 }
+
+
+
+var motor_data = vehicle_data.filter(x=>x.type=="Motor")
+var car_data = vehicle_data.filter(x=>x.type=="Car")
+var truck_data = vehicle_data.filter(x=>x.type=="Truck")
+
+createTabs(motor_data, 0); 
+createTabs(car_data, 1);
+createTabs(truck_data, 2);
+
+
 
 
 
