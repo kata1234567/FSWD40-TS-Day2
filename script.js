@@ -146,16 +146,6 @@ function createDOM() {
     }
 }
 // createDOM();
-tags = document.getElementsByTagName("button");
-var _loop_1 = function (i) {
-    tags[i].addEventListener("click", function () {
-        var result = vehicle_data[i].calculatePrice();
-        $(".card:eq(" + i + ")").append("<p>" + result + "</p>");
-    }, { once: true });
-};
-for (var i = 0; i < tags.length; i++) {
-    _loop_1(i);
-}
 function createTabs(arr, x) {
     for (i = 0; i < arr.length; i++) {
         dummy = document.createElement("div");
@@ -190,6 +180,16 @@ function createTabs(arr, x) {
 var motor_data = vehicle_data.filter(function (x) { return x.type == "Motor"; });
 var car_data = vehicle_data.filter(function (x) { return x.type == "Car"; });
 var truck_data = vehicle_data.filter(function (x) { return x.type == "Truck"; });
-createTabs(motor_data, 0);
-createTabs(car_data, 1);
+createTabs(car_data, 0);
+createTabs(motor_data, 1);
 createTabs(truck_data, 2);
+var tags = document.getElementsByTagName("button");
+var _loop_1 = function (i) {
+    tags[i].addEventListener("click", function () {
+        var result = vehicle_data[i].calculatePrice();
+        $(".card:eq(" + i + ")").append("<p>" + result + "</p>");
+    }, { once: true });
+};
+for (var i = 0; i < tags.length; i++) {
+    _loop_1(i);
+}
