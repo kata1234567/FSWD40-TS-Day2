@@ -19,7 +19,6 @@ var Vehicle = /** @class */ (function () {
     }
     return Vehicle;
 }());
-var vehicle1 = new Vehicle("Opel", "10.000", "45kW", "Patrol");
 var Motor = /** @class */ (function (_super) {
     __extends(Motor, _super);
     function Motor(Brand, Mileage, Power, Fuel, ListPrice, Age, type) {
@@ -45,7 +44,7 @@ var Motor = /** @class */ (function (_super) {
             newPrice = (58 / 100) * this.ListPrice;
         }
         console.log(newPrice);
-        return (this.newPrice);
+        return (newPrice);
     };
     return Motor;
 }(Vehicle));
@@ -74,7 +73,7 @@ var Truck = /** @class */ (function (_super) {
             newPrice = (45 / 100) * this.ListPrice;
         }
         console.log(newPrice);
-        return (this.newPrice);
+        return (newPrice);
     };
     return Truck;
 }(Vehicle));
@@ -103,7 +102,7 @@ var Car = /** @class */ (function (_super) {
             newPrice = (35 / 100) * this.ListPrice;
         }
         console.log(newPrice);
-        return (this.newPrice);
+        return (newPrice);
     };
     return Car;
 }(Vehicle));
@@ -113,4 +112,48 @@ var car1 = new Car("BMW", "15.000", "90kW", "Electric", 35000, 2);
 var car2 = new Car("Renault", "80.000", "45kW", "Diesel", 20000, 6);
 var truck1 = new Truck("MAN", "150.000", "300kW", "Patrol", 110000, 4);
 var truck2 = new Truck("Mercedes", "50.000", "300kW", "Patrol", 150000, 11);
+var vehicle_data = [];
+vehicle_data.push(motor1, motor2, car1, car2, truck1, truck2);
 motor1.calculatePrice();
+function createDOM() {
+    for (i = 0; i < vehicle_data.length; i++) {
+        dummy = document.createElement("div");
+        dummy.classList.add("card");
+        dummy.classList.add("col-lg-4");
+        dummy.classList.add("col-md-6");
+        dummy.classList.add("col-sm-12");
+        var row = document.getElementById("row1");
+        row.appendChild(dummy);
+        var headline = document.createElement("h4");
+        var headline_text = document.createTextNode(vehicle_data[i].Brand);
+        headline.appendChild(headline_text);
+        dummy.appendChild(headline);
+        var power = document.createElement("p");
+        var power_text = document.createTextNode(vehicle_data[i].Power);
+        power.appendChild(power_text);
+        dummy.appendChild(power);
+        var mileage = document.createElement("p");
+        var mileage_text = document.createTextNode(vehicle_data[i].Mileage);
+        mileage.appendChild(mileage_text);
+        dummy.appendChild(mileage);
+        var fuel = document.createElement("p");
+        var fuel_text = document.createTextNode(vehicle_data[i].Fuel);
+        fuel.appendChild(fuel_text);
+        dummy.appendChild(fuel);
+        var button = document.createElement("button");
+        var button_text = document.createTextNode("Calculate the Price");
+        button.appendChild(button_text);
+        dummy.appendChild(button);
+    }
+}
+createDOM();
+tags = document.getElementsByTagName("button");
+var _loop_1 = function (i) {
+    tags[i].addEventListener("click", function () {
+        var result = vehicle_data[i].calculatePrice();
+        $(".card:eq(" + i + ")").append("<p>" + result + "</p>");
+    }, { once: true });
+};
+for (var i = 0; i < tags.length; i++) {
+    _loop_1(i);
+}
